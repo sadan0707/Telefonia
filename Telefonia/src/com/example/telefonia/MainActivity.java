@@ -19,7 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<<<<
 
 	
 	ConnectivityManager polaczenie;
@@ -30,9 +30,6 @@ public class MainActivity extends Activity {
 	
 	int wifi_ip_adres, wifi_sila_sygnalu;
 	
-	
-		
-
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,11 +47,7 @@ public class MainActivity extends Activity {
 
 	}
 
-
-
-
-
-	protected void InformacjeWifi() {
+		protected void InformacjeWifi() {
 		
 		polaczenie = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 		
