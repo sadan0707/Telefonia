@@ -19,7 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 
 
-public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<<<<
+public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<<<<<
 
 	
 	ConnectivityManager polaczenie;
