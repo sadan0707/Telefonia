@@ -10,6 +10,10 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.telephony.CellIdentityGsm;
+import android.telephony.CellInfoGsm;
+import android.telephony.CellInfoWcdma;
+import android.telephony.CellSignalStrength;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -20,6 +24,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.app.Activity;
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 
 
 public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<<<<<
@@ -27,13 +33,23 @@ public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<
 	
 	ConnectivityManager polaczenie;
 	NetworkInfo wifi, cdma;
-	SignalStrength sila_sygnalu;
+	SignalStrength sila;
 	WifiManager zarzadca_wifi;
 	WifiInfo inf_wifi;
 	
+	SensorManager zarzadca_sensor;
+	
+	Sensor sensor_zyroskopX, sensor_zyroskopY, sensor_zyroskopZ;
+	
+	
+	CellInfoGsm info_gsm;
+	CellIdentityGsm identyfikator_gsm;
+	
+	CellSignalStrength sila_sygnalu;
+	
 	TelephonyManager komorka;
 	
-	int wifi_ip_adres, wifi_sila_sygnalu, wifi_id, wifi_speed;
+	int wifi_ip_adres, wifi_sila_sygnalu, wifi_id, wifi_speed, mobilny_typ, poziom_sygnalu_gsm;
 	String wifi_mac_adress, wifi_ssid, wifi_bssid, imei;
 	
 	
@@ -73,6 +89,7 @@ public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<
 			
 			Button btn_wifi = (Button)findViewById(R.id.btn_wifi);
 			Button btn_komorka = (Button)findViewById(R.id.btn_komorka);
+			Button btn_poziomica = (Button)findViewById(R.id.btn_poziomica);
 			
 			Button btn_powrot_pomiary = (Button)findViewById(R.id.btn_powrot_pomiary);
 			
@@ -91,6 +108,15 @@ public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<
 							
 						}
 					});
+			
+			btn_poziomica.setOnClickListener(
+					new OnClickListener() {
+						public void onClick(View v) {
+							EkranPoziomica();
+							
+						}
+					});
+			
 
 
 			btn_powrot_pomiary.setOnClickListener(
@@ -101,6 +127,50 @@ public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<
 						}
 					});
 
+		}
+
+		protected void EkranPoziomica() {
+			setContentView(R.layout.activity_poziomica);
+			
+			Button btn_pomiary_zyroskop = (Button)findViewById(R.id.btn_pomior_zyroskop);
+			Button btn_powrot_poziomica = (Button)findViewById(R.id.btn_poziomica_powrot);
+			
+			btn_pomiary_zyroskop.setOnClickListener(
+					new OnClickListener() {
+						public void onClick(View v) {
+							InformacjeZyrokop();
+						}
+						
+					});
+			
+			btn_powrot_poziomica.setOnClickListener(
+					new OnClickListener() {
+						public void onClick(View v) {
+							EkranPomiary();
+						}
+						
+					});
+			
+		}
+
+		protected void InformacjeZyrokop() {
+			
+			TextView text_polozenieX = (TextView)findViewById(R.id.text_polozenieX); 
+			TextView text_polozenieY = (TextView)findViewById(R.id.text_polozenieY);
+			TextView text_polozenieZ = (TextView)findViewById(R.id.text_polozenieZ);
+			
+			SensorManager zarzadca_sensor = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+			Sensor sensor_zyroskopX = zarzadca_sensor.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+			//Sensor sensor_zyroskopY = zarzadca_sensor.getDefaultSensor(SensorManager.RAW_DATA_Y);
+			//Sensor sensor_zyroskopZ = zarzadca_sensor.getDefaultSensor(SensorManager.RAW_DATA_Z);
+			
+			String polozenieX = sensor_zyroskopX.getName();
+			//String polozenieY = sensor_zyroskopY.getName();
+			//String polozenieZ = sensor_zyroskopZ.getName();
+			
+			text_polozenieX.setText(polozenieX);
+			//text_polozenieY.setText(polozenieY);
+			//text_polozenieZ.setText(polozenieZ);
 		}
 
 		protected void EkranKomorka() {
@@ -132,16 +202,27 @@ public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<
 			TextView text_imei = (TextView)findViewById(R.id.text_imei);
 			TextView text_imei_sv = (TextView)findViewById(R.id.text_imei_sv);
 			TextView text_nazwa_operatora = (TextView)findViewById(R.id.text_nazwa_operatora);
+			TextView text_numer_abonenta = (TextView)findViewById(R.id.text_numer_abonenta);
+			TextView text_typ_sieci = (TextView)findViewById(R.id.text_typ_sieci);
+			//TextView text_poziom_sygnalu_gsm = (TextView)findViewById(R.id.text_poziom_sygnalu_gsm);
 			
 			TelephonyManager komorka = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+			 
 			
 			String imei = komorka.getDeviceId();
 			String imei_sv = komorka.getDeviceSoftwareVersion();
 			String nazwa_operatora = komorka.getNetworkOperatorName();
+			String numer_abonenta = komorka.getLine1Number();
+			
+			int mobilny_typ = komorka.getNetworkType();
+			//int poziom_sygnalu_gsm = sila_sygnalu.getDbm();
 			
 			text_imei.setText(imei);
 			text_imei_sv.setText(imei_sv);
 			text_nazwa_operatora.setText(nazwa_operatora);
+			text_numer_abonenta.setText(numer_abonenta);
+			text_typ_sieci.setText(String.valueOf(mobilny_typ));
+			//text_poziom_sygnalu_gsm.setText(String.valueOf(poziom_sygnalu_gsm));
 			
 		}
 

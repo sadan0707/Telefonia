@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/btn_inf_wifi"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="Info WIFI" />
@@ -19,7 +19,7 @@
     <ToggleButton
         android:id="@+id/btn_wifi_on_off"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/btn_inf_wifi"
         android:text="ToggleButton" />
@@ -159,9 +159,8 @@
     <Button
         android:id="@+id/btn_powrot_wifi"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_wifi_on_off"
-        android:layout_alignBottom="@+id/btn_wifi_on_off"
+        android:layout_height="50dp"
+        android:layout_above="@+id/textView1"
         android:layout_toRightOf="@+id/btn_wifi_on_off"
         android:text="&lt;&lt; POWROT" />
 
