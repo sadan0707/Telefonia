@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+	<LinearLayout 
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btn_wifi"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="WIFI" />
+
+    <Button
+        android:id="@+id/btn_komorka"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="KOMORKA" />
+
+    <Button
+        android:id="@+id/btn_akcelerometr"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="AKCELEROMETR" />
+
+    <Button
+        android:id="@+id/btn_kompas"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="KOMPAS" />
+
+    <Button
+        android:id="@+id/btn_bateria"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="BATERIA" />
+
+    <Button
+        android:id="@+id/btn_poziomica"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="POZIOMICA" />
+
+    <Button
+        android:id="@+id/btn_gps"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="GPS" />
+
+    <Button
+        android:id="@+id/btn_bluetouch"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="BLUETOUCH" />
+
+    <Button
+        android:id="@+id/btn_swiatlo"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="ŚWIATŁO" />
+
+    <Button
+        android:id="@+id/btn_temp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="TEMPERATURA" />
+
+    <Button
+        android:id="@+id/btn_multimetr"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="MULTIMETR" />
+
+    	<Button
+        	android:id="@+id/btn_raport_zbiorczy"
+        	android:layout_width="200dp"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center"
+        	android:layout_marginTop="15dp"
+        	android:text="RAPORT ZBIORCZY" />
+
+    	<Button
+    	    android:id="@+id/btn_powrot_pomiary"
+    	    style="?android:attr/buttonStyleSmall"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_marginTop="20dp"
+    	    android:text="&lt;&lt; POWROT" />
+
+	</LinearLayout>
+</ScrollView>

@@ -25,6 +25,8 @@ import android.widget.ToggleButton;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 
@@ -39,7 +41,7 @@ public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<
 	
 	SensorManager zarzadca_sensor;
 	
-	Sensor sensor_zyroskopX, sensor_zyroskopY, sensor_zyroskopZ;
+	Sensor sensor_zyroskop, sensor_accelerometr;
 	
 	
 	CellInfoGsm info_gsm;
@@ -52,6 +54,8 @@ public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<
 	int wifi_ip_adres, wifi_sila_sygnalu, wifi_id, wifi_speed, mobilny_typ, poziom_sygnalu_gsm;
 	String wifi_mac_adress, wifi_ssid, wifi_bssid, imei;
 	
+	private SensorEventListener zyroskopSluchaczSesnora;
+	private SensorEventListener accelerometrSluchaczSesnora;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -155,22 +159,43 @@ public class MainActivity extends Activity { // >>>><< Telefonia - WERSJA 2 >><<
 
 		protected void InformacjeZyrokop() {
 			
-			TextView text_polozenieX = (TextView)findViewById(R.id.text_polozenieX); 
-			TextView text_polozenieY = (TextView)findViewById(R.id.text_polozenieY);
-			TextView text_polozenieZ = (TextView)findViewById(R.id.text_polozenieZ);
+			final TextView text_polozenieX = (TextView)findViewById(R.id.text_polozenieX); 
+			final TextView text_polozenieY = (TextView)findViewById(R.id.text_polozenieY);
+			final TextView text_polozenieZ = (TextView)findViewById(R.id.text_polozenieZ);
 			
 			SensorManager zarzadca_sensor = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-			Sensor sensor_zyroskopX = zarzadca_sensor.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-			//Sensor sensor_zyroskopY = zarzadca_sensor.getDefaultSensor(SensorManager.RAW_DATA_Y);
-			//Sensor sensor_zyroskopZ = zarzadca_sensor.getDefaultSensor(SensorManager.RAW_DATA_Z);
+			Sensor sensor_zyroskop = zarzadca_sensor.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 			
-			String polozenieX = sensor_zyroskopX.getName();
-			//String polozenieY = sensor_zyroskopY.getName();
-			//String polozenieZ = sensor_zyroskopZ.getName();
 			
-			text_polozenieX.setText(polozenieX);
-			//text_polozenieY.setText(polozenieY);
-			//text_polozenieZ.setText(polozenieZ);
+			if (sensor_zyroskop != null) {
+			zarzadca_sensor.registerListener(zyroskopSluchaczSesnora, sensor_zyroskop, SensorManager.SENSOR_DELAY_NORMAL);}
+			else
+				Toast.makeText(this, "ZYROSKOP NIE DOSTEPNY", Toast.LENGTH_LONG).show();
+			
+			SensorEventListener mojSluchaczSensora = new SensorEventListener() {
+				
+				@Override
+				public void onSensorChanged(SensorEvent event) {
+					
+					float zyroskopX = event.values[0];
+					float zyroskopY = event.values[1];
+					float zyroskopZ = event.values[2];
+					
+					text_polozenieX.setText(String.valueOf(zyroskopX));
+					text_polozenieY.setText(String.valueOf(zyroskopY));
+					text_polozenieZ.setText(String.valueOf(zyroskopZ));
+					
+					
+				}
+				
+				@Override
+				public void onAccuracyChanged(Sensor sensor, int accuracy) {
+					// TODO Auto-generate
+					
+				}
+			};
+			
+			
 		}
 
 		protected void EkranKomorka() {
